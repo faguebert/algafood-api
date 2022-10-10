@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+import com.algaworks.algafood.infrastructure.repository.spec.RestauranteComFreteGratisSpec;
+import com.algaworks.algafood.infrastructure.repository.spec.RestauranteComNomeSemelhanteSpec;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +38,14 @@ public class RestauranteController {
 													  BigDecimal taxaFreteInicial,
 													  BigDecimal taxaFreteFinal){
 		return restauranteRepository.find(nomeRestaurante, taxaFreteInicial, taxaFreteFinal);
+	}
+
+	@GetMapping("/com-frete-gratis")
+	public List<Restaurante> restaurantesComFreteGratis(String nomeRestaurante){
+		var comFreteGratis = new RestauranteComFreteGratisSpec();
+		var comNomeSemelhante = new RestauranteComNomeSemelhanteSpec(nomeRestaurante);
+
+		return restauranteRepository.findAll(comFreteGratis.and(comNomeSemelhante));
 	}
 	
 	@GetMapping("/{restauranteId}")
