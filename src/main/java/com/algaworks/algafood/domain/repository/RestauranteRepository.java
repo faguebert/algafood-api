@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
-public interface RestauranteRepository extends JpaRepository<Restaurante, Long>, JpaSpecificationExecutor<Restaurante> {
+public interface RestauranteRepository extends CustomJpaRepository<Restaurante, Long>, JpaSpecificationExecutor<Restaurante> {
 
     List<Restaurante> find(String nomeRestaurante, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal);
 }
