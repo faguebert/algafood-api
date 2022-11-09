@@ -1,6 +1,6 @@
 create table forma_pagamento (
 	id bigint not null auto_increment,
-	descricao varchar(60) not null,
+	descricao_forma_pagamento varchar(60) not null,
 	primary key (id)
 ) engine=InnoDB default charset=utf8;
 
@@ -20,7 +20,7 @@ create table grupo_permissao (
 
 create table permissao (
 	id bigint not null auto_increment,
-	descricao varchar(60) not null,
+	descricao_permissao varchar(60) not null,
 	nome_permissao varchar(100) not null,
 
 	primary key (id)
@@ -78,9 +78,6 @@ create table usuario_grupo (
 
 	primary key (usuario_id, grupo_id)
 ) engine=InnoDB default charset=utf8;
-
-
-
 
 alter table grupo_permissao add constraint fk_grupo_permissao_permissao
 foreign key (permissao_id) references permissao (id);
