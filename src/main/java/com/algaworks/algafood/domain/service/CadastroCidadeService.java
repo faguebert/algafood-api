@@ -3,6 +3,7 @@ package com.algaworks.algafood.domain.service;
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.model.Cidade;
+import com.algaworks.algafood.domain.model.Estado;
 import com.algaworks.algafood.domain.repository.CidadeRepository;
 import com.algaworks.algafood.domain.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,17 @@ public class CadastroCidadeService {
 	
 	@Autowired
 	private EstadoRepository estadoRepository;
+
+	@Autowired
+	private CadastroEstadoService cadastroEstado;
 	
 	public Cidade salvar(Cidade cidade) {
+		Long estadoId = cidade.getEstado().getId();
+
+		Estado estado = cadastroEstado.buscarOuFalhar(estadoId);
+
+		cidade.setEstado(estado);
+
 		return cidadeRepository.save(cidade);
 	}
 	
